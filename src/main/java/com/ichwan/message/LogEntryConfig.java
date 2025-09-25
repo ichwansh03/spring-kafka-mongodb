@@ -82,8 +82,11 @@ public class LogEntryConfig {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, mongoDataGroupId);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        DefaultKafkaConsumerFactory<String, LogEntry> consumerFactory = new DefaultKafkaConsumerFactory<>(props);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.ichwan.message.LogEntry");
+        DefaultKafkaConsumerFactory<String, LogEntry> consumerFactory =
+                new DefaultKafkaConsumerFactory<>(props);
         ConcurrentKafkaListenerContainerFactory<String, LogEntry> container = new ConcurrentKafkaListenerContainerFactory<>();
         container.setConsumerFactory(consumerFactory);
         return container;
