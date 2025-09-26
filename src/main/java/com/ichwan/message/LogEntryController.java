@@ -21,5 +21,4 @@ public class LogEntryController {
         return "Log sent to Kafka successfully!";
     }
 
-
 }
