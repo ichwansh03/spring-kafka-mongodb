@@ -26,8 +26,7 @@ public class LogEntryConsumer {
     @KafkaListener(
             topics = "${kafka.topic.mongo-data}",
             groupId = "${spring.kafka.consumer.group-id.mongo-data}",
-            containerFactory = "mongoDataKafkaListenerContainerFactory",
-            autoStartup = "false"
+            containerFactory = "mongoDataKafkaListenerContainerFactory"
     )
     public void consumeMongoData(LogEntry logEntry) {
         System.out.println("Consumed log entry for MongoDB: " + logEntry);
