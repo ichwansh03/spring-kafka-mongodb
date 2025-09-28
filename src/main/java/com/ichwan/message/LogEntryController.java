@@ -1,18 +1,17 @@
 package com.ichwan.message;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/logs")
 public class LogEntryController {
 
+    private final LogListenerManager listenerManager;
     private final LogEntryProducer producer;
 
-    public LogEntryController(LogEntryProducer producer) {
+    public LogEntryController(LogEntryProducer producer, LogListenerManager listenerManager) {
         this.producer = producer;
+        this.listenerManager = listenerManager;
     }
 
     @PostMapping
@@ -21,4 +20,15 @@ public class LogEntryController {
         return "Log sent to Kafka successfully!";
     }
 
+    @GetMapping("/start")
+    public String startListeners() {
+        listenerManager.startListeners("log-listener");
+        return "Kafka listeners started.";
+    }
+
+    @GetMapping("/stop")
+    public String stopListeners() {
+        listenerManager.stopListeners("log-listener");
+        return "Kafka listeners stopped.";
+    }
 }
