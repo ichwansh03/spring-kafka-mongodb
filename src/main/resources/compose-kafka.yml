@@ -58,3 +58,13 @@ services:
         condition: service_healthy
 
     restart: unless-stopped
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    hostname: mongodb
+    ports:
+      - "27017:27017"
+    command: ["--replSet", "rs0", "--bind_ip_all"]
+    volumes:
+      - ./mongo-data:/data/db
