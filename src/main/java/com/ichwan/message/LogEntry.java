@@ -10,9 +10,6 @@ import java.util.Map;
 @Document(collection = "logs")
 public class LogEntry {
 
-    public LogEntry() {
-    }
-
     public LogEntry(String id, String level, String message, Instant timestamp, Map<String, String> metadata) {
         this.id = id;
         this.level = level;
