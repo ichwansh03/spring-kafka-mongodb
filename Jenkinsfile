@@ -19,6 +19,14 @@ pipeline {
             }
         }
 
+        stage('Validate') {
+            steps {
+                script {
+                 sh 'ls -la'
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'mvn clean package -DskipTests'
