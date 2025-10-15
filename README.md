@@ -14,6 +14,8 @@ curl --location 'http://localhost:8080/api/logs' \
 }'
 ```
 
+### Setup MongoDB with Debezium Connector
+
 * access mongodb from terminal with command `docker exec -it <container_id> mongosh`
 * initiate a replica set with command 
 ```mongosh
@@ -41,3 +43,15 @@ curl --location 'http://localhost:8083/connectors' \
 ```
 * change database and collection name in the payload as per your need
 * check connector status with command `curl --location 'http://localhost:8083/connectors/mongo-connector/status'`
+
+### Setup Jenkins
+* run compose file jenkins bundled with jdk17
+* install maven inside jenkins bash with command `docker exec -it <container_id> bash` and then inside bash run
+```bash
+apt-get update
+apt-get install maven -y
+```
+* run compose file, access jenkins at `http://localhost:8080`
+* generate token from jenkins and use it in place of password in below command with command `docker exec -it jenkins_container_id cat /var/jenkins_home/secrets/initialAdminPassword`
+* install suggested plugins and create first admin user
+* create new job with maven project and use below command in place of your git repo link (example in `Jenkinsfile`)
